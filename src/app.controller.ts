@@ -4,12 +4,14 @@ import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService,
-              @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger:LoggerService) {}
+  constructor(
+    private readonly appService: AppService,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger: LoggerService,
+  ) {}
 
   @Get()
   getHello(): string {
-    this.logger.log('ssss')
+    this.logger.log('ssss');
     return this.appService.getHello();
   }
 }
