@@ -4,7 +4,8 @@ import Logger from './config/log4js.config'
 @Controller()
 export class AppController {
   private  log = Logger.getLogger(AppController.name)
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) {
+  }
 
   @Get()
   getHello(): string {
