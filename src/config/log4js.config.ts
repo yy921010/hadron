@@ -4,10 +4,10 @@ const baseLogPath = path.resolve(__dirname, '../../logs');
 
 const logger = configure({
   appenders: {
-    console:{
-      type:'console'
+    console: {
+      type: 'console',
     },
-    access:{
+    access: {
       type: 'dateFile',
       filename: `${baseLogPath}/access/access.log`, // 日志文件名，会命名为：access.20200320.log
       alwaysIncludePattern: true,
@@ -17,7 +17,7 @@ const logger = configure({
       category: 'http',
       keepFileExt: true,
     },
-     app: {
+    app: {
       type: 'dateFile',
       filename: `${baseLogPath}/app-out/app.log`,
       alwaysIncludePattern: true,
@@ -56,4 +56,4 @@ const logger = configure({
   },
 });
 
-export  default  logger
+export default logger;
