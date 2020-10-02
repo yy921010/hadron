@@ -1,32 +1,22 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { Logger } from 'log4js';
-import { Log } from 'src/decorator/log.decorator';
-@Log
+import Logger from '../decorator/log.decorator';
+import { Request, Response } from 'express';
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  private log: Logger;
+  private log = Logger.getLogger('http');
 
-  use(req: any, res: any, next: () => void) {
+  use(req: Request, res: Response, next: () => void) {
     const code = res.statusCode; // 响应状态码
     next();
-    // 组装日志信息
-    const logFormat = `
-    Request original url: ${req.originalUrl}
-    Method: ${req.method}
-    IP: ${req.ip}
-    Status code: ${code}
-    Parmas: ${JSON.stringify(req.params)}
-    Query: ${JSON.stringify(req.query)}
-    Body: ${JSON.stringify(req.body)}
-    
-  `;
+    const accessLogFormat = `[${req.ip} ${req.method} ${code} ${req.originalUrl}]`;
+
     // 根据状态码，进行日志类型区分
     if (code >= 500) {
-      this.log.error(logFormat);
+      this.log.error(accessLogFormat, '[params=', req.params, '][query=', req.query, '][body=', req.body);
     } else if (code >= 400) {
-      this.log.warn(logFormat);
+      this.log.warn(accessLogFormat, '[params=', req.params, '][query=', req.query, '][body=', req.body);
     } else {
-      this.log.debug(logFormat);
+      this.log.debug(accessLogFormat, '[params=', req.params, '][query=', req.query, '][body=', req.body);
     }
   }
 }

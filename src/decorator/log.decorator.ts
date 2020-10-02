@@ -52,7 +52,7 @@ const logConfig: Configuration = {
     },
     info: { appenders: ['console', 'app', 'errors'], level: 'info' },
     access: { appenders: ['console', 'app', 'errors'], level: 'info' },
-    http: { appenders: ['access'], level: 'DEBUG' },
+    http: { appenders: ['console', 'access'], level: 'DEBUG' },
   },
 };
 export function Log<T extends { new (...args: any[]): any }>(constructor: T) {

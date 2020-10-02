@@ -10,7 +10,6 @@ export class AppController {
 
   @Get()
   async getHello(): Promise<string> {
-    this.log();
     return await this.appService.getHello();
   }
 }
