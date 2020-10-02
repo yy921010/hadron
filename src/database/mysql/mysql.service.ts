@@ -1,13 +1,13 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Global } from 'src/constants/global.constants';
 import * as Mysql from 'mysql';
-import Logger from '../../config/log4js.config';
 import { MysqlException } from '../exception/mysql.exception';
 import { ErrorCode } from 'src/constants/error.code';
+import { Log } from 'src/decorator/log.decorator';
+@Log
 @Injectable()
 export class MysqlService {
   private dataBasePool: Mysql.Pool;
-  private log = Logger.getLogger(MysqlService.name);
   constructor(@Inject(Global.MYSQL_CONFIG_OPTION) entities = []) {
     this.dataBasePool = Mysql.createPool({
       user: 'root',

@@ -1,11 +1,12 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 import { Request, Response } from 'express';
-import logger from 'src/config/log4js.config';
+import { Logger } from 'log4js';
 import { MysqlException } from 'src/database/exception/mysql.exception';
-
+import { Log } from 'src/decorator/log.decorator';
+@Log
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
-  private log = logger.getLogger(AllExceptionFilter.name);
+  private log: Logger;
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
