@@ -3,10 +3,11 @@ export enum ERROR_CODE {
 }
 
 export class MysqlException extends Error {
-  private code: ERROR_CODE;
-  constructor(code: ERROR_CODE, message: string) {
+  private  error_code: ERROR_CODE;
+  private  error_message
+  constructor(code1: ERROR_CODE, message1: string) {
     super();
-    this.code = code;
-    this.message = message;
+    this.error_code = code1;
+    this.error_message = message1;
   }
 }

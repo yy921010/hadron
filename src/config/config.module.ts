@@ -1,6 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { Global } from 'src/constants/global.constants';
 import { ConfigService } from './config.service';
+import { GLOBAL_CONFIG_TOKEN } from './config.constants';
 
 @Module({
   providers: [ConfigService],
@@ -12,7 +12,7 @@ export class ConfigModule {
       module: ConfigModule,
       providers: [
         {
-          provide: Global.GLOBAL_CONFIG_TOKEN,
+          provide: GLOBAL_CONFIG_TOKEN,
           useValue: ymlFiles,
         },
         ConfigService,
