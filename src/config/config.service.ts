@@ -7,7 +7,6 @@ import { Logger } from 'log4js';
 @Injectable()
 export class ConfigService {
   private log: Logger = LoggerClass.getLogger(ConfigService.name);
-  private username: string;
   private ymlObject: any;
 
   constructor(@Inject(Global.GLOBAL_CONFIG_TOKEN) ymlFiles = []) {
@@ -23,6 +22,7 @@ export class ConfigService {
 
   mergeObjectByProfile(ymlObjects: Array<any>) {
     if (ymlObjects.length > 0) {
+      this.log.info('[mergeObjectByProfile] this.ymlObject is loading!!');
       const defaultConfig = ymlObjects[0];
       const devConfig = ymlObjects[1];
       const prodConfig = ymlObjects[2];
@@ -43,7 +43,7 @@ export class ConfigService {
     return defaultConfig?.hadron?.profile?.active || defaultConfig?.hadron?.profile;
   }
 
-  getConfigByName(objectKey: string): unknown | string | number {
+  get(objectKey: string): unknown | string | number {
     if (this.ymlObject) {
       const hadronConfig = this.ymlObject.hadron;
       return hadronConfig[objectKey] || {};

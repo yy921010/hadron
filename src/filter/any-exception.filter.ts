@@ -1,8 +1,12 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { Logger } from 'log4js';
-import { MysqlException } from 'src/database/exception/mysql.exception';
-import { Log } from 'src/decorator/log.decorator';
+import { Log } from '../decorator/log.decorator';
+import { MysqlException } from '../mysql';
+
+/**
+ * 所有异常过滤器
+ */
 @Log
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {

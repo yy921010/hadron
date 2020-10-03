@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { MysqlException } from './database/exception/mysql.exception';
 import { Log } from './decorator/log.decorator';
 @Log
 @Controller()
