@@ -2,7 +2,6 @@ import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from
 import { Request, Response } from 'express';
 import { Logger } from 'log4js';
 import { Log } from '../decorator';
-import { MysqlException } from '../mysql';
 
 /**
  * 所有异常过滤器
@@ -12,7 +11,7 @@ import { MysqlException } from '../mysql';
 export class AllExceptionFilter implements ExceptionFilter {
   private log: Logger;
 
-  catch(exception: HttpException | MysqlException, host: ArgumentsHost) {
+  catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();

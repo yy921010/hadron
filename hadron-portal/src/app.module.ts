@@ -2,16 +2,11 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { ConfigModule, ConfigService } from './config';
-import { MysqlModule } from './mysql';
+import { ConfigModule } from './config';
 
 @Module({
   imports: [
     ConfigModule.forRoot(['.env.yml', '.env.dev.yml', '.env.prod.yml']),
-    MysqlModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => configService.get('mysql'),
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],
