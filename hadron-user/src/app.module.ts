@@ -10,7 +10,7 @@ import { UserModule } from './user/user.module';
     ConfigModule.forRoot(['.env.yml', '.env.dev.yml', '.env.prod.yml']),
     UserModule,
   ],
-  controllers: [AppController,UserModule],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {

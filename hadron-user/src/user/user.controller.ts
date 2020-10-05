@@ -8,10 +8,10 @@ export interface Hero{
   id:number
   name:string
 }
-
 @Controller()
 export class UserController {
-  @GrpcMethod()
+
+  @GrpcMethod("UserService")
   findOne(data: HeroById, metadata: any): Hero {
     const items = [
       { id: 1, name: 'John' },
