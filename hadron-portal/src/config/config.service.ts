@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as YAML from 'yaml';
-import LoggerClass from 'src/decorator/log.decorator';
 import { Logger } from 'log4js';
 import { GLOBAL_CONFIG_TOKEN } from './config.constants';
+import { logger } from '../utils/logger';
 @Injectable()
 export class ConfigService {
-  private log: Logger = LoggerClass.getLogger(ConfigService.name);
+  private log: Logger = logger.getLogger(ConfigService.name);
   private ymlObject: any;
 
   constructor(@Inject(GLOBAL_CONFIG_TOKEN) ymlFiles = []) {

@@ -1,22 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AllExceptionFilter } from './filter/any-exception.filter';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import * as path from 'path'
-import LoggerClass from './decorator/log.decorator';
+import { MicroserviceOptions } from '@nestjs/microservices';
+import {microserviceOption} from './grpc.serve.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log('__dirname<<<<',__dirname);
-  const logger  = LoggerClass.getLogger(bootstrap.name)
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.GRPC,
-    options: {
-      url:'localhost:33027',
-      package: 'user', // ['hero', 'hero2']
-      protoPath: './src/user/user.proto' // ['./hero/hero.proto', './hero/hero2.proto']
-    },
-  })
+  app.connectMicroservice<MicroserviceOptions>(microserviceOption)
   app.useGlobalFilters(new AllExceptionFilter());
   await app.startAllMicroservicesAsync();
 }

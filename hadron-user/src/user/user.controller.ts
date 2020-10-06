@@ -1,15 +1,9 @@
 import { Controller } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
+import { Hero, HeroById, UserService } from '../grpc/api/usermodule';
 
-export  interface HeroById{
-  id:number
-}
-export interface Hero{
-  id:number
-  name:string
-}
 @Controller()
-export class UserController {
+export class UserController implements  UserService{
 
   @GrpcMethod("UserService",'FindOne')
   findOne(data: HeroById, metadata: any): Hero {

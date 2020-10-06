@@ -5,18 +5,6 @@ import { Logger } from 'log4js';
 import { AppService } from './app.service';
 import { Observable } from 'rxjs';
 
-export  interface HeroById{
-  id:number
-}
-export interface Hero{
-  id:number
-  name:string
-}
-interface UserService {
-  findOne(data: HeroById): Observable<Hero>;
-  findMany(upstream: Observable<HeroById>): Observable<Hero>;
-}
-
 @Log
 @Controller()
 export class AppController implements OnModuleInit{
@@ -26,19 +14,16 @@ export class AppController implements OnModuleInit{
 
   @Get()
   async getHello(): Promise<any> {
-    const a = this.userService.findOne({
+    const a = await this.userService.findOne({
       id:1
     })
-    a.subscribe((c)=>{
-      console.log('a?????',c)
-    })
-
+    console.log(a);
     return {
       version: this.config.get('version'),
     };
   }
 
   onModuleInit(): any {
-    this.userService = this.appService.client.getService<UserService>('UserService')
+    this.userService = this.appService.client.getService<any>('UserService')
   }
 }

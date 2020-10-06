@@ -14,8 +14,8 @@ export class AppService {
     transport: Transport.GRPC,
     options: {
       url:'localhost:33027',
-      package: 'user', // ['hero', 'hero2']
-      protoPath: './src/user/user.proto' // ['./hero/hero.proto', './hero/hero2.proto']
+      package: ['user'],
+      protoPath: ['./src/user/user.proto' ]
     },
   }) public readonly client: ClientGrpc;
 }
