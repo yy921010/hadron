@@ -12,14 +12,12 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
+      url:'localhost:33027',
       package: 'user', // ['hero', 'hero2']
       protoPath: './src/user/user.proto' // ['./hero/hero.proto', './hero/hero2.proto']
     },
   })
   app.useGlobalFilters(new AllExceptionFilter());
   await app.startAllMicroservicesAsync();
-  await app.listen(3001);
-
-  logger.info('user-module',`Application is running on: ${await app.getUrl()}`)
 }
 bootstrap();

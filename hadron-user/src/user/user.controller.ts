@@ -11,7 +11,7 @@ export interface Hero{
 @Controller()
 export class UserController {
 
-  @GrpcMethod("UserService")
+  @GrpcMethod("UserService",'FindOne')
   findOne(data: HeroById, metadata: any): Hero {
     const items = [
       { id: 1, name: 'John' },
