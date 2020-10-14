@@ -5,9 +5,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ConfigModule, ConfigService } from './config';
 
 @Module({
-  imports: [
-    ConfigModule
-  ],
+  imports: [ConfigModule],
   controllers: [AppController],
   providers: [AppService],
 })

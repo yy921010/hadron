@@ -5,7 +5,7 @@ import { ConfigService } from './config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new AllExceptionFilter());
-  const configService:any = app.get(ConfigService)
+  const configService: any = app.get(ConfigService);
   await app.listen(configService.ymlObject.port);
 }
 bootstrap();

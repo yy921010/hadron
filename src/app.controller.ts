@@ -6,13 +6,12 @@ import { Logger } from 'log4js';
 @Controller()
 @Log4j
 export class AppController {
-  private logger:Logger
-  constructor(private readonly config: ConfigService) {
-}
+  private logger: Logger;
+  constructor(private readonly config: ConfigService) {}
 
   @Get()
   async getHello(): Promise<any> {
-    this.logger.debug('sssss')
+    this.logger.debug('sssss');
     return {
       version: this.config.get('version'),
     };
