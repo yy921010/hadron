@@ -1,15 +1,18 @@
 import { Controller, Get } from '@nestjs/common';
-import { Log } from './decorator';
 import { ConfigService } from './config';
+import { Log4j } from './logger';
 import { Logger } from 'log4js';
-@Log
+
 @Controller()
+@Log4j
 export class AppController {
-  private log: Logger;
-  constructor(private readonly config: ConfigService) {}
+  private logger:Logger
+  constructor(private readonly config: ConfigService) {
+}
 
   @Get()
   async getHello(): Promise<any> {
+    this.logger.debug('sssss')
     return {
       version: this.config.get('version'),
     };

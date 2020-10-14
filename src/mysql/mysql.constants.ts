@@ -1,2 +1,0 @@
-export const MYSQL_CONFIG_OPTION = 'MYSQL_CONFIG_OPTION';
-export const MYSQL_CLIENT = 'MYSQL_CLIENT';

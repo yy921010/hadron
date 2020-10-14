@@ -1,9 +1,14 @@
-import { configure, Logger } from "log4js";
+import { Configuration, configure, Logger } from 'log4js';
+import { ConfigService } from '../config';
 
-const logger = {}
+const configService = new ConfigService()
+const log4jsConfig  = configService.get('log4js') as Configuration
+export function Log4j<T extends { new (...args: any[]): any }>(constructor: T) {
+  return class extends constructor {
+    logger = configure(log4jsConfig).getLogger(constructor.name);
+  };
+}
 
-export function Log <T extends { new (...args:any[]):any}>(constructor:T){
-    return class extends constructor {
-        log :Logger ={}
-    }
+export function getLogger(moduleName:string):Logger{
+  return configure(log4jsConfig).getLogger(moduleName);
 }

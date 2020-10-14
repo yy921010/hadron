@@ -1,11 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as YAML from 'yaml';
-import LoggerClass from 'src/decorator/log.decorator';
-import { Logger } from 'log4js';
 @Injectable()
 export class ConfigService {
-  private log: Logger = LoggerClass.getLogger(ConfigService.name);
   private ymlObject: any;
 
   constructor() {
@@ -21,20 +18,20 @@ export class ConfigService {
 
   mergeObjectByProfile(ymlObjects: Array<any>) {
     if (ymlObjects.length > 0) {
-      this.log.info('[mergeObjectByProfile] this.ymlObject is loading!!');
       const defaultConfig = ymlObjects[0];
       const devConfig = ymlObjects[1];
       const prodConfig = ymlObjects[2];
       const defaultActiveKey = this.getMergeKey4Profile(defaultConfig);
 
       if (defaultActiveKey === this.getMergeKey4Profile(devConfig)) {
-        this.ymlObject = Object.assign(defaultConfig, devConfig);
+        const hadronConfig = devConfig.hadron
+        this.ymlObject = Object.assign(defaultConfig, hadronConfig);
       }
       if (defaultActiveKey === this.getMergeKey4Profile(prodConfig)) {
-        this.ymlObject = Object.assign(defaultConfig, prodConfig);
+        const hadronConfig = prodConfig.hadron
+        this.ymlObject = Object.assign(defaultConfig, hadronConfig);
       }
     } else {
-      this.log.info('[mergeObjectByProfile] this.ymlObject is exist!!');
     }
   }
 

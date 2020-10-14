@@ -1,9 +1,9 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import Logger from '../decorator/log.decorator';
 import { Request, Response } from 'express';
+import { getLogger } from '../logger';
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  private log = Logger.getLogger('http');
+  private log = getLogger('http');
 
   use(req: Request, res: Response, next: () => void) {
     const code = res.statusCode; // 响应状态码
