@@ -4,13 +4,18 @@ import { AppService } from './app.service';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ConfigModule, ConfigService } from './config';
 import { MysqlModule } from './mysql';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(['.env.yml', '.env.dev.yml', '.env.prod.yml']),
+    ConfigModule,
     MysqlModule.forRootAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => configService.get('mysql'),
+    }),
+    LoggerModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => configService.get('logger'),
     }),
   ],
   controllers: [AppController],
