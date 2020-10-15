@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 @Schema()
 export class User extends Document {
   @Prop()
-  userName: string;
+  username: string;
   password: string;
   nickName: string;
   isAdmin: number;
@@ -20,11 +20,11 @@ export class User extends Document {
   mailCode: number;
   role: string;
   ageLevel: string;
-  clientLimit:number
-  avatarUrl:string
-  client
-  isOnline
-  isLocked
+  clientLimit: number;
+  avatarUrl: string;
+  client;
+  isOnline;
+  isLocked;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

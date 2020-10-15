@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ConfigModule, ConfigService } from './config';
-import { UserModule } from './user/user.module';
+import { UserModule } from './user';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
@@ -12,7 +12,10 @@ import { MongooseModule } from '@nestjs/mongoose';
     UserModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => configService.get('mongo'),
+      useFactory: async (configService: ConfigService) => {
+        console.log(configService.get('mongo'));
+        return configService.get('mongo')
+      },
       inject: [ConfigService],
     }),
   ],
