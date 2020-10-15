@@ -24,16 +24,14 @@ export class ConfigService {
       const defaultActiveKey = this.getMergeKey4Profile(defaultConfig);
 
       if (defaultActiveKey === this.getMergeKey4Profile(devConfig)) {
-        Object.assign(defaultConfig.hadron,devConfig.hadron)
+        Object.assign(defaultConfig.hadron, devConfig.hadron);
         this.ymlObject = defaultConfig;
-
       }
       if (defaultActiveKey === this.getMergeKey4Profile(prodConfig)) {
-        Object.assign(defaultConfig.hadron,prodConfig.hadron)
+        Object.assign(defaultConfig.hadron, prodConfig.hadron);
         this.ymlObject = defaultConfig;
       }
     } else {
-
     }
   }
 
