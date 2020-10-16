@@ -8,11 +8,16 @@ export class User extends Document {
   username: string;
   @Prop({
     required: true,
+    default: '',
   })
   password: string;
-  @Prop()
+  @Prop({
+    default: 0,
+  })
   pin: number;
-  @Prop()
+  @Prop({
+    default: '',
+  })
   nickName: string;
   @Prop()
   isAdmin: number;
@@ -32,8 +37,6 @@ export class User extends Document {
   mail: number;
   @Prop()
   mailCode: number;
-  @Prop()
-  role: string;
   @Prop()
   ageLevel: string;
   @Prop()

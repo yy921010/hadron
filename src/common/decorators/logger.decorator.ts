@@ -1,5 +1,5 @@
 import { Configuration, configure, Logger } from 'log4js';
-import { ConfigService } from '../config';
+import { ConfigService } from '../../core';
 
 const configService = new ConfigService();
 const log4jsConfig = configService.get('log4js') as Configuration;

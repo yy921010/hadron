@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
-import { ConfigService } from './config';
-import { Log4j } from './logger';
 import { Logger } from 'log4js';
+import { Log4j } from './common';
+import { ConfigService } from './core';
 
 @Controller()
 @Log4j
