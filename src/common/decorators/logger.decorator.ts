@@ -12,3 +12,5 @@ export function Log4j<T extends { new (...args: any[]): any }>(constructor: T) {
 export function getLogger(moduleName: string): Logger {
   return configure(log4jsConfig).getLogger(moduleName);
 }
+
+//export function

@@ -4,9 +4,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './interceptors/transform.interceptor';
 
 @Module({
-  providers: [ConfigService,
-    {provide:APP_INTERCEPTOR,useClass: TransformInterceptor}
-  ],
+  providers: [ConfigService, { provide: APP_INTERCEPTOR, useClass: TransformInterceptor }],
   exports: [ConfigService],
 })
 export class CoreModule {}
