@@ -46,8 +46,6 @@ export class User extends Document {
   avatarUrl: string;
   @Prop()
   isOnline: number;
-  @Prop()
-  isLocked: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
