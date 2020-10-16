@@ -26,7 +26,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     } else {
       response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         error_code: 400,
-        error_message:'server error'
+        error_message: 'server error',
       });
     }
   }

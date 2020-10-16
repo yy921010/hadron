@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LiveModule } from './live/live.module';
-import { ConfigService,CoreModule } from './core';
+import { ConfigService, CoreModule } from './core';
 import { LoggerMiddleware } from './common';
 
 @Module({
