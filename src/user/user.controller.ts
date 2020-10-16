@@ -12,7 +12,7 @@ export class UserController {
   }
 
   @Get()
-  getAllUser() {
-    return this.userService.findAll();
+  async getAllUser() {
+    return await this.userService.findByPage(2, 2);
   }
 }

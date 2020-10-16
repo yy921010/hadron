@@ -3,9 +3,14 @@ import { Model } from 'mongoose';
 import { User } from './schema/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserCreateDto } from './dto/user.dto';
+import { Log4j } from '../common';
+import { Logger } from 'log4js';
+import { PageInfoInterface } from '../core/interfaces/page-info.interface';
 
 @Injectable()
+@Log4j
 export class UserService {
+  private logger: Logger;
   constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
   async saveUser(user: UserCreateDto): Promise<User> {
@@ -15,5 +20,26 @@ export class UserService {
 
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
+  }
+
+  async findByPage(pageNumber: number, pageSize: number): Promise<PageInfoInterface> {
+    const findResult = await Promise.all([
+      this.userModel
+        .find({})
+        .skip(pageNumber * pageSize)
+        .limit(pageNumber)
+        .sort({
+          updateTime: -1,
+        })
+        .exec(),
+      this.userModel.count({}),
+    ]);
+    this.logger.debug(findResult);
+    return {
+      list: findResult[0],
+      total: findResult[1],
+      current: pageNumber,
+      size: pageSize,
+    };
   }
 }

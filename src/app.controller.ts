@@ -11,7 +11,6 @@ export class AppController {
 
   @Get()
   async getHello(): Promise<any> {
-    this.logger.debug('sssss');
     return {
       version: this.config.get('version'),
     };

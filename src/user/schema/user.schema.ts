@@ -1,6 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-@Schema()
+@Schema({
+  timestamps: {
+    createdAt: 'createTime',
+    updatedAt: 'updateTime',
+  },
+})
 export class User extends Document {
   @Prop({
     required: true,
@@ -8,47 +13,70 @@ export class User extends Document {
   username: string;
   @Prop({
     required: true,
-    default: '',
   })
   password: string;
   @Prop({
-    default: 0,
+    default: '0000',
   })
-  pin: number;
+  pin: string;
   @Prop({
     default: '',
   })
   nickName: string;
-  @Prop()
-  isAdmin: number;
-  @Prop()
+  @Prop({
+    default: 'userId_',
+  })
   userId: string;
-  @Prop()
-  isSub: number;
-  @Prop()
+  @Prop({
+    default: 0,
+  })
   accountNonExpired: number;
-  @Prop()
+  @Prop({
+    default: 0,
+  })
   accountNonLocked: number;
-  @Prop()
+  @Prop({
+    default: 0,
+  })
   credentialsNonExpired: number;
-  @Prop()
+  @Prop({
+    default: 0,
+  })
   enable: number;
-  @Prop()
-  mail: number;
-  @Prop()
-  mailCode: number;
-  @Prop()
+  @Prop({
+    default: '',
+  })
+  mail: string;
+  @Prop({
+    default: '',
+  })
+  mailCode: string;
+  @Prop({
+    default: '',
+  })
   ageLevel: string;
-  @Prop()
+  @Prop({
+    default: 0,
+  })
   clientLimit: number;
-  @Prop()
+  @Prop({
+    default: '',
+  })
   avatar: string;
-  @Prop()
+  @Prop({
+    default: '',
+  })
   authType: string;
-  @Prop()
-  updateTime: string;
-  @Prop()
-  createTime: string;
+  @Prop({
+    default: '',
+    type: Number,
+  })
+  updateTime: number;
+  @Prop({
+    default: '',
+    type: Number,
+  })
+  createTime: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
