@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { UserCreateDto } from './dto/user.dto';
 import { UserService } from './user.service';
 
@@ -14,5 +14,10 @@ export class UserController {
   @Get()
   async getAllUser() {
     return await this.userService.findByPage(2, 2);
+  }
+
+  @Get()
+  async getUsersByPage(@Query('pageSize') pageSize: number, @Query('pageNumber') pageNumber: number) {
+    return await this.userService.findByPage(pageNumber, pageSize);
   }
 }

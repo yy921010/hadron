@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { User } from './schema/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserCreateDto } from './dto/user.dto';
 import { Log4j } from '../common';
 import { Logger } from 'log4js';
 import { PageInfoInterface } from '../core/interfaces/page-info.interface';
+import { User } from './interfaces/user.interface';
 
 @Injectable()
 @Log4j
 export class UserService {
   private logger: Logger;
-  constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
+  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
   async saveUser(user: UserCreateDto): Promise<User> {
     const createUser = new this.userModel(user);
@@ -32,9 +32,8 @@ export class UserService {
           updateTime: -1,
         })
         .exec(),
-      this.userModel.count({}),
+      this.userModel.countDocuments({}),
     ]);
-    this.logger.debug(findResult);
     return {
       list: findResult[0],
       total: findResult[1],
