@@ -11,17 +11,13 @@ export class User extends Document {
   })
   password: string;
   @Prop()
+  pin: number;
+  @Prop()
   nickName: string;
   @Prop()
   isAdmin: number;
   @Prop()
   userId: string;
-  @Prop()
-  updateTime: string;
-  @Prop()
-  createTime: string;
-  @Prop()
-  pin: number;
   @Prop()
   isSub: number;
   @Prop()
@@ -43,11 +39,13 @@ export class User extends Document {
   @Prop()
   clientLimit: number;
   @Prop()
-  avatarUrl: string;
+  avatar: string;
   @Prop()
-  isOnline: number;
+  authType: string;
   @Prop()
-  isLocked: number;
+  updateTime: string;
+  @Prop()
+  createTime: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
