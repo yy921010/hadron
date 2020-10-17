@@ -67,6 +67,13 @@ export class User extends Document {
     default: '',
   })
   authType: string;
+  
+  @Prop({
+    default:0,
+    type:Number
+  })
+  isDeleted:number
+  
   @Prop({
     default: '',
     type: Number,

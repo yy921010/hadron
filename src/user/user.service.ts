@@ -30,6 +30,9 @@ export class UserService {
     const findResult = await Promise.all([
       this.userModel
         .find({})
+        .where({
+          isDeleted:0
+        })
         .skip(pageNumber * pageSize)
         .limit(pageNumber)
         .sort({
@@ -61,5 +64,20 @@ export class UserService {
     }
     this.logger.warn('[saveUser] msg = ', '用户更新失败');
     return false;
+  }
+
+  async deleteUser(userId:string):Promise<any>{
+    const deleteResult = await this.userModel.findByIdAndUpdate({
+      _id: userId
+    },{
+      $set:{
+        isDeleted: 1
+      }
+    })
+    if(deleteResult.username){
+        this.logger.info('[deleteUser] msg=','用户删除成功')
+        return true
+    }
+    return false
   }
 }
