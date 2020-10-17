@@ -31,7 +31,7 @@ export class UserService {
       this.userModel
         .find({})
         .where({
-          isDeleted:0
+          isDeleted: 0,
         })
         .skip(pageNumber * pageSize)
         .limit(pageNumber)
@@ -66,18 +66,21 @@ export class UserService {
     return false;
   }
 
-  async deleteUser(userId:string):Promise<any>{
-    const deleteResult = await this.userModel.findByIdAndUpdate({
-      _id: userId
-    },{
-      $set:{
-        isDeleted: 1
-      }
-    })
-    if(deleteResult.username){
-        this.logger.info('[deleteUser] msg=','用户删除成功')
-        return true
+  async deleteUser(userId: string): Promise<any> {
+    const deleteResult = await this.userModel.findByIdAndUpdate(
+      {
+        _id: userId,
+      },
+      {
+        $set: {
+          isDeleted: 1,
+        },
+      },
+    );
+    if (deleteResult.username) {
+      this.logger.info('[deleteUser] msg=', '用户删除成功');
+      return true;
     }
-    return false
+    return false;
   }
 }

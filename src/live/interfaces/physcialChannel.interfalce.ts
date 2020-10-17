@@ -1,5 +1,5 @@
-export interface PhysicalChannel{
-    id:string
-    name:string
-    playUrl:string
+export interface PhysicalChannel {
+  id: string;
+  name: string;
+  playUrl: string;
 }

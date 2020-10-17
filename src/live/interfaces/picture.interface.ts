@@ -1,5 +1,5 @@
-export interface Picture{
-    href:string
-    id:string
-    imageType: string
+export interface Picture {
+  href: string;
+  id: string;
+  imageType: string;
 }

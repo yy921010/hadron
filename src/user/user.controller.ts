@@ -26,12 +26,11 @@ export class UserController {
       message: '更新成功',
     };
   }
-π
   @Delete(':userId')
-  async deleteUser(@Param() params:any) {
-    await this.userService.deleteUser(params.userId)
+  async deleteUser(@Param() params: any) {
+    await this.userService.deleteUser(params.userId);
     return {
-      message:'删除成功'
-    }
+      message: '删除成功',
+    };
   }
 }
