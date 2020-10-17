@@ -1,41 +1,22 @@
+import { User } from '../schema/user.schema';
+
 export class UserCreateDto {
+  readonly _id: string;
   readonly username: string;
-
   readonly password: string;
-
-  readonly pin: number;
-
+  readonly pin: string;
   readonly nickName: string;
-
-  readonly isAdmin: number;
-
-  readonly userId: string;
-
-  readonly isSub: number;
-
+  userId: string;
   readonly accountNonExpired: number;
-
   readonly accountNonLocked: number;
-
   readonly credentialsNonExpired: number;
-
   readonly enable: number;
-
-  readonly mail: number;
-
+  readonly mail: string;
   readonly mailCode: number;
-
   readonly role: string;
-
   readonly ageLevel: string;
-
   readonly clientLimit: number;
-
   readonly avatar: string;
-
   readonly authType: string;
-
-  readonly updateTime: string;
-
-  readonly createTime: string;
 }
+export class UserUpdateDto extends User {}

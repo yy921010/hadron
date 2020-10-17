@@ -5,10 +5,11 @@ import { TransformInterceptor } from './interceptors/transform.interceptor';
 import { ExcludeNullInterceptor } from './interceptors/excludeNull.interceptor';
 
 @Module({
-  providers: [ConfigService,
+  providers: [
+    ConfigService,
     { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
-    { provide: APP_INTERCEPTOR, useClass: ExcludeNullInterceptor }
-    ],
+    { provide: APP_INTERCEPTOR, useClass: ExcludeNullInterceptor },
+  ],
   exports: [ConfigService],
 })
 export class CoreModule {}

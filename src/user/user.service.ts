@@ -1,28 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { UserCreateDto } from './dto/user.dto';
+import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { Log4j } from '../common';
 import { Logger } from 'log4js';
 import { PageInfoInterface } from '../core/interfaces/page-info.interface';
-import { User } from './interfaces/user.interface';
-
+import { User } from './schema/user.schema';
+import * as uuid from 'uuid';
 @Injectable()
 @Log4j
 export class UserService {
   private logger: Logger;
-  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
-  async saveUser(user: UserCreateDto): Promise<User> {
-    const createUser = new this.userModel(user);
-    return createUser.save();
+  async save(user: UserCreateDto): Promise<boolean> {
+    user.userId = 'userId_' + uuid.v4();
+    const createUserModel = new this.userModel(user);
+    const userResult = await createUserModel.save();
+    this.logger.debug('[saveUser] userResult = ', userResult);
+    if (userResult.username) {
+      this.logger.info('[saveUser] msg = ', '用户新增成功');
+      return true;
+    }
+    this.logger.warn('[saveUser] msg = ', '用户新增失败');
+    return false;
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
-  }
-
-  async findByPage(pageNumber: number, pageSize: number): Promise<PageInfoInterface> {
+  async find(pageNumber: number, pageSize: number): Promise<PageInfoInterface> {
     const findResult = await Promise.all([
       this.userModel
         .find({})
@@ -40,5 +44,22 @@ export class UserService {
       current: pageNumber,
       size: pageSize,
     };
+  }
+
+  async update(user: UserUpdateDto) {
+    const updateResult = await this.userModel.findByIdAndUpdate(
+      {
+        _id: user._id,
+      },
+      {
+        $set: user,
+      },
+    );
+    if (updateResult.username) {
+      this.logger.info('[saveUser] msg = ', '用户更新成功');
+      return true;
+    }
+    this.logger.warn('[saveUser] msg = ', '用户更新失败');
+    return false;
   }
 }

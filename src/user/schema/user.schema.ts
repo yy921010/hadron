@@ -6,7 +6,7 @@ import { Document } from 'mongoose';
     updatedAt: 'updateTime',
   },
 })
-export class User extends  Document{
+export class User extends Document {
   @Prop({
     required: true,
   })
@@ -52,11 +52,11 @@ export class User extends  Document{
   })
   mailCode: string;
   @Prop({
-    default: '',
+    default: '18',
   })
   ageLevel: string;
   @Prop({
-    default: 0,
+    default: 5,
   })
   clientLimit: number;
   @Prop({

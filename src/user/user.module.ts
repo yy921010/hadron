@@ -10,7 +10,9 @@ import { User, UserSchema } from './schema/user.schema';
       {
         name: User.name,
         useFactory: () => {
-          return UserSchema;
+          const schema = UserSchema;
+          schema.pre('save', () => console.log('pre save hook'));
+          return schema;
         },
       },
     ]),
