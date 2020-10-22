@@ -1,4 +1,4 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
@@ -7,6 +7,10 @@ export class PhysicalChannel extends Document {
     default: '',
     type: String,
   })
+  @Prop({
+    type: String,
+    default: '',
+  })
   name: string;
   @Prop({
     default: '',
@@ -14,3 +18,5 @@ export class PhysicalChannel extends Document {
   })
   playUrl: string;
 }
+
+export const PhysicalChannelSchema = SchemaFactory.createForClass(PhysicalChannel);
