@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ChannelService } from '../services/channel.service';
 import { ChannelCreateDto, ChannelUpdateDto } from '../dto/channel.dto';
 
@@ -12,6 +12,7 @@ export class ChannelController {
   }
 
   @Post()
+  @UsePipes(ValidationPipe)
   async saveChannel(@Body() channelCreateDto: ChannelCreateDto): Promise<any> {
     await this.channelService.save(channelCreateDto);
     return {

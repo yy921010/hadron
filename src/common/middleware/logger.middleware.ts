@@ -8,15 +8,11 @@ export class LoggerMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: () => void) {
     const code = res.statusCode; // 响应状态码
     next();
-    const accessLogFormat = `[${req.ip} ${req.method} ${code} ${req.originalUrl}]`;
-
-    // 根据状态码，进行日志类型区分
-    if (code >= 500) {
-      this.log.error(accessLogFormat, '[params=', req.params, '][query=', req.query, '][body=', req.body);
-    } else if (code >= 400) {
-      this.log.warn(accessLogFormat, '[params=', req.params, '][query=', req.query, '][body=', req.body);
-    } else {
-      this.log.debug(accessLogFormat, '[params=', req.params, '][query=', req.query, '][body=', req.body);
-    }
+    this.log.info(
+      `[${req.ip} ${req.method}  ${code}  ${req.url}] `,
+      'params ->',req.params,
+      'query ->',req.query,
+      'body ->',req.body,
+    );
   }
 }

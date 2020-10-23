@@ -4,10 +4,6 @@ import { Document } from 'mongoose';
 @Schema()
 export class PhysicalChannel extends Document {
   @Prop({
-    default: '',
-    type: String,
-  })
-  @Prop({
     type: String,
     default: '',
   })

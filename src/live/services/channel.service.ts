@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { PageInfoInterface } from '../../core';
 import { Log4j } from '../../common';
 import { Injectable } from '@nestjs/common';
-import { ChannelUpdateDto } from '../dto/channel.dto';
+import { ChannelCreateDto, ChannelUpdateDto } from '../dto/channel.dto';
 
 @Log4j
 @Injectable()
@@ -13,7 +13,7 @@ export class ChannelService {
   private logger: Logger;
   constructor(@InjectModel(Channel.name) private readonly channelModel: Model<Channel>) {}
 
-  async save(channel: Channel): Promise<boolean> {
+  async save(channel: ChannelCreateDto): Promise<boolean> {
     const createChannel = new this.channelModel(channel);
     const channelResult = await createChannel.save();
     this.logger.debug('[saveChannel] channelResult = ', channelResult);
