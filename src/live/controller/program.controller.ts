@@ -1,12 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
-import { ProgramService } from "../services/program.service";
-import { ProgramCreateDto, ProgramUpdateDto } from "../dto/program.dto";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { ProgramService } from '../services/program.service';
+import { ProgramCreateDto, ProgramUpdateDto } from '../dto/program.dto';
 
 @Controller('program')
 export class ProgramController {
-
-  constructor(private readonly programService:ProgramService) {
-  }
+  constructor(private readonly programService: ProgramService) {}
 
   @Get()
   async getChannelByPage(@Query('pageSize') pageSize: number, @Query('pageNumber') pageNumber: number) {

@@ -4,8 +4,8 @@ import { Channel, ChannelSchemas } from './schema/channel.schema';
 import { ChannelService } from './services/channel.service';
 import { ChannelController } from './controller/channel.controller';
 import { Program, ProgramSchema } from './schema/program.schema';
-import { ProgramService } from "./services/program.service";
-import { ProgramController } from "./controller/program.controller";
+import { ProgramService } from './services/program.service';
+import { ProgramController } from './controller/program.controller';
 
 @Module({
   imports: [
@@ -24,8 +24,8 @@ import { ProgramController } from "./controller/program.controller";
       },
     ]),
   ],
-  providers: [ChannelService,ProgramService],
-  exports: [ChannelService,ProgramService],
-  controllers: [ChannelController,ProgramController],
+  providers: [ChannelService, ProgramService],
+  exports: [ChannelService, ProgramService],
+  controllers: [ChannelController, ProgramController],
 })
 export class LiveModule {}

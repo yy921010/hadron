@@ -2,10 +2,10 @@ import { Logger } from 'log4js';
 import { InjectModel } from '@nestjs/mongoose';
 import { Channel } from '../schema/channel.schema';
 import { Model } from 'mongoose';
-import { PageInfoInterface } from "../../core";
+import { PageInfoInterface } from '../../core';
 import { Log4j } from '../../common';
 import { Injectable } from '@nestjs/common';
-import { ChannelUpdateDto } from "../dto/channel.dto";
+import { ChannelUpdateDto } from '../dto/channel.dto';
 
 @Log4j
 @Injectable()

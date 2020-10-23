@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Program } from '../schema/program.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Logger } from "log4js";
-import { PageInfoInterface } from "../../core";
-import { Log4j } from "../../common";
-import { ProgramUpdateDto } from "../dto/program.dto";
+import { Logger } from 'log4js';
+import { PageInfoInterface } from '../../core';
+import { Log4j } from '../../common';
+import { ProgramUpdateDto } from '../dto/program.dto';
 
 @Injectable()
 @Log4j

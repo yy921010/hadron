@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ChannelService } from '../services/channel.service';
-import { ChannelCreateDto, ChannelUpdateDto } from "../dto/channel.dto";
+import { ChannelCreateDto, ChannelUpdateDto } from '../dto/channel.dto';
 
 @Controller('channel')
 export class ChannelController {
