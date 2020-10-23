@@ -1,15 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Channel } from './schema/channel.schema';
-import { Model } from 'mongoose';
-import { Log4j } from '../common';
 import { Logger } from 'log4js';
-import { PageInfoInterface } from '../core/interfaces/page-info.interface';
-import { ChannelUpdateDto } from './dto/channelCreateDto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Channel } from '../schema/channel.schema';
+import { Model } from 'mongoose';
+import { PageInfoInterface } from "../../core";
+import { Log4j } from '../../common';
+import { Injectable } from '@nestjs/common';
+import { ChannelUpdateDto } from "../dto/channel.dto";
 
-@Injectable()
 @Log4j
-export class LiveService {
+@Injectable()
+export class ChannelService {
   private logger: Logger;
   constructor(@InjectModel(Channel.name) private readonly channelModel: Model<Channel>) {}
 
@@ -65,7 +65,7 @@ export class LiveService {
     return false;
   }
 
-  async deleteUser(channelId: string): Promise<any> {
+  async delete(channelId: string): Promise<any> {
     const deleteResult = await this.channelModel.findByIdAndUpdate(
       {
         _id: channelId,

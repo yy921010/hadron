@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
-import { LiveController } from './live.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Channel, ChannelSchemas } from './schema/channel.schema';
-import { LiveService } from './live.service';
+import { ChannelService } from './services/channel.service';
+import { ChannelController } from './controller/channel.controller';
+import { Program, ProgramSchema } from './schema/program.schema';
+import { ProgramService } from "./services/program.service";
+import { ProgramController } from "./controller/program.controller";
 
 @Module({
   imports: [
@@ -15,10 +18,14 @@ import { LiveService } from './live.service';
           return schema;
         },
       },
+      {
+        name: Program.name,
+        useFactory: () => ProgramSchema,
+      },
     ]),
   ],
-  providers: [LiveService],
-  exports: [LiveService],
-  controllers: [LiveController],
+  providers: [ChannelService,ProgramService],
+  exports: [ChannelService,ProgramService],
+  controllers: [ChannelController,ProgramController],
 })
 export class LiveModule {}
