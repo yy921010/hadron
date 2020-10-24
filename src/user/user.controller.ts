@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserService } from './user.service';
 
@@ -7,30 +7,23 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @UsePipes(ValidationPipe)
   async saveUser(@Body() user: UserCreateDto): Promise<any> {
-    await this.userService.save(user);
-    return {
-      message: '新增成功',
-    };
+    return this.userService.save(user);
   }
 
   @Get()
-  async getUsersByPage(@Query('pageSize') pageSize: number, @Query('pageNumber') pageNumber: number) {
+  async getUsersByPage(@Query('pageSize') pageSize: string, @Query('pageNumber') pageNumber: string) {
     return await this.userService.find(pageNumber, pageSize);
   }
 
   @Put()
+  @UsePipes(ValidationPipe)
   async updateUser(@Body() user: UserUpdateDto) {
-    await this.userService.update(user);
-    return {
-      message: '更新成功',
-    };
+    return this.userService.update(user);
   }
   @Delete(':userId')
   async deleteUser(@Param() params: any) {
-    await this.userService.deleteUser(params.userId);
-    return {
-      message: '删除成功',
-    };
+    return this.userService.deleteUser(params.userId);
   }
 }
