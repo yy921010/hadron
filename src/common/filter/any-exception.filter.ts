@@ -10,7 +10,7 @@ import {
 import { Request, Response } from 'express';
 import { Logger } from 'log4js';
 import { MongoError } from 'mongodb';
-import { Log4j } from '..';
+import { BaseException, Log4j } from '..';
 
 /**
  * 所有异常过滤器
@@ -20,11 +20,17 @@ import { Log4j } from '..';
 export class AllExceptionFilter implements ExceptionFilter {
   private logger: Logger;
 
-  catch(exception: HttpException | MongoError | BadRequestException, host: ArgumentsHost) {
+  catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     this.logger.error(exception);
     switch (true) {
+      case exception instanceof BaseException:
+        response.status(HttpStatus.BAD_REQUEST).json({
+          error_code: 'TMK.' + exception.getStatus(),
+          error_message: exception.getResponse(),
+        });
+        break;
       case exception instanceof BadRequestException:
         response.status(HttpStatus.BAD_REQUEST).json({
           error_code: 400,

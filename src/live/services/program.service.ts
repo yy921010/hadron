@@ -4,24 +4,26 @@ import { Program } from '../schema/program.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'log4js';
 import { PageInfoInterface } from '../../core';
-import { Log4j } from '../../common';
-import { ProgramUpdateDto } from '../dto/program.dto';
+import { BaseException, Log4j } from '../../common';
+import { ProgramCreateDto, ProgramUpdateDto } from '../dto/program.dto';
+import { ProgramError } from '../errorCode/program.error';
 
 @Injectable()
 @Log4j
 export class ProgramService {
   constructor(@InjectModel(Program.name) private readonly programModel: Model<Program>) {}
   private logger: Logger;
-  async save(program: Program): Promise<boolean> {
+  async save(program: ProgramCreateDto): Promise<any> {
     const createProgram = new this.programModel(program);
     const channelResult = await createProgram.save();
-    this.logger.debug('[saveProgram] createProgram = ', createProgram);
-    if (channelResult.name) {
-      this.logger.info('[channelSave] msg = ', '频道新增成功');
-      return true;
+    this.logger.debug('[save] createProgram -> ', createProgram);
+    if (!channelResult.name) {
+      this.logger.info('[save] msg -> ', '节目单新增失败');
+      throw new BaseException(ProgramError.PROGRAM_ADD_FAIL);
     }
-    this.logger.warn('[saveChannel] msg = ', '频道新增失败');
-    return false;
+    return {
+      message: '新增节目单成功',
+    };
   }
 
   async find(pageNumber: number, pageSize: number): Promise<PageInfoInterface> {
@@ -50,18 +52,19 @@ export class ProgramService {
   async update(programUpdateDto: ProgramUpdateDto) {
     const updateResult = await this.programModel.findByIdAndUpdate(
       {
-        _id: programUpdateDto._id,
+        _id: programUpdateDto.id,
       },
       {
         $set: programUpdateDto,
       },
     );
-    if (updateResult.name) {
-      this.logger.info('[saveUser] msg = ', '节目单更新成功');
-      return true;
+    if (!updateResult.name) {
+      this.logger.warn('[update] msg ->', '节目单更新失败');
+      throw new BaseException(ProgramError.PROGRAM_UPDATE_FAIL);
     }
-    this.logger.warn('[saveUser] msg = ', '节目单更新失败');
-    return false;
+    return {
+      message: '新增节目单成功',
+    };
   }
 
   async delete(channelId: string): Promise<any> {
@@ -75,10 +78,12 @@ export class ProgramService {
         },
       },
     );
-    if (deleteResult.name) {
-      this.logger.info('[deleteUser] msg=', '删除节目单成功');
-      return true;
+    if (!deleteResult.name) {
+      this.logger.warn('[delete] msg ->', '删除节目单失败');
+      throw new BaseException(ProgramError.PROGRAM_DELETED_FAIL);
     }
-    return false;
+    return {
+      message: '删除节目单成功',
+    };
   }
 }

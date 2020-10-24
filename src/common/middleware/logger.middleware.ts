@@ -10,9 +10,12 @@ export class LoggerMiddleware implements NestMiddleware {
     next();
     this.log.info(
       `[${req.ip} ${req.method}  ${code}  ${req.url}] `,
-      'params ->',req.params,
-      'query ->',req.query,
-      'body ->',req.body,
+      'params ->',
+      req.params,
+      'query ->',
+      req.query,
+      'body ->',
+      req.body,
     );
   }
 }

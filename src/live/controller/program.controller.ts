@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ProgramService } from '../services/program.service';
 import { ProgramCreateDto, ProgramUpdateDto } from '../dto/program.dto';
 
@@ -12,26 +12,19 @@ export class ProgramController {
   }
 
   @Post()
-  async saveChannel(@Body() programCreateDto: ProgramCreateDto): Promise<any> {
-    await this.programService.save(programCreateDto);
-    return {
-      message: '新增成功',
-    };
+  @UsePipes(ValidationPipe)
+  async saveProgram(@Body() programCreateDto: ProgramCreateDto): Promise<any> {
+    return this.programService.save(programCreateDto);
   }
 
   @Put()
-  async updateChannel(@Body() programUpdateDto: ProgramUpdateDto) {
-    await this.programService.update(programUpdateDto);
-    return {
-      message: '更新成功',
-    };
+  @UsePipes(ValidationPipe)
+  async updateProgram(@Body() programUpdateDto: ProgramUpdateDto) {
+    return this.programService.update(programUpdateDto);
   }
 
   @Delete(':channelId')
-  async deleteChannel(@Param() params: any) {
-    await this.programService.delete(params.channelId);
-    return {
-      message: '删除成功',
-    };
+  async deleteProgram(@Param() params: any) {
+    return this.programService.delete(params.channelId);
   }
 }

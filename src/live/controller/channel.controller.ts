@@ -7,32 +7,24 @@ export class ChannelController {
   constructor(private readonly channelService: ChannelService) {}
 
   @Get()
-  async getChannelByPage(@Query('pageSize') pageSize: number, @Query('pageNumber') pageNumber: number) {
-    return await this.channelService.find(+pageNumber, +pageSize);
+  async getChannelByPage(@Query('pageSize') pageSize: string, @Query('pageNumber') pageNumber: string) {
+    return this.channelService.find(pageNumber, pageSize);
   }
 
   @Post()
   @UsePipes(ValidationPipe)
   async saveChannel(@Body() channelCreateDto: ChannelCreateDto): Promise<any> {
-    await this.channelService.save(channelCreateDto);
-    return {
-      message: '新增成功',
-    };
+    return this.channelService.save(channelCreateDto);
   }
 
   @Put()
+  @UsePipes(ValidationPipe)
   async updateChannel(@Body() channel: ChannelUpdateDto) {
-    await this.channelService.update(channel);
-    return {
-      message: '更新成功',
-    };
+    return this.channelService.update(channel);
   }
 
   @Delete(':channelId')
   async deleteChannel(@Param() params: any) {
-    await this.channelService.delete(params.channelId);
-    return {
-      message: '删除成功',
-    };
+    return this.channelService.delete(params.channelId);
   }
 }
