@@ -84,6 +84,11 @@ export class User extends Document {
     type: Number,
   })
   createTime: number;
+  @Prop({
+    default: 0,
+    type: Number,
+  })
+  isAdmin: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -9,11 +9,11 @@ import {
   Query,
   UseGuards,
   UsePipes,
-  ValidationPipe
-} from "@nestjs/common";
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserService } from './user.service';
-import { AuthGuard } from "@nestjs/passport";
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -21,6 +21,7 @@ export class UserController {
 
   @Post()
   @UsePipes(ValidationPipe)
+  @UseGuards(AuthGuard('jwt'))
   async saveUser(@Body() user: UserCreateDto): Promise<any> {
     return this.userService.save(user);
   }
@@ -33,10 +34,13 @@ export class UserController {
 
   @Put()
   @UsePipes(ValidationPipe)
+  @UseGuards(AuthGuard('jwt'))
   async updateUser(@Body() user: UserUpdateDto) {
     return this.userService.update(user);
   }
+
   @Delete(':userId')
+  @UseGuards(AuthGuard('jwt'))
   async deleteUser(@Param() params: any) {
     return this.userService.deleteUser(params.userId);
   }
