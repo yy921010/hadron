@@ -1,6 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+  UsePipes,
+  ValidationPipe
+} from "@nestjs/common";
 import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
 import { UserService } from './user.service';
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('user')
 export class UserController {
@@ -13,6 +26,7 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async getUsersByPage(@Query('pageSize') pageSize: string, @Query('pageNumber') pageNumber: string) {
     return await this.userService.find(pageNumber, pageSize);
   }

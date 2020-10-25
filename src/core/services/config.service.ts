@@ -39,7 +39,7 @@ export class ConfigService {
     return defaultConfig?.hadron?.profile?.active || defaultConfig?.hadron?.profile;
   }
 
-  get(objectKey: string): unknown | string | number {
+  get(objectKey: string): unknown | string | number | any {
     if (this.ymlObject) {
       const hadronConfig = this.ymlObject.hadron;
       return hadronConfig[objectKey] || {};

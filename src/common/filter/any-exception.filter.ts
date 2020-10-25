@@ -6,6 +6,7 @@ import {
   HttpStatus,
   BadRequestException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { Logger } from 'log4js';
@@ -25,6 +26,12 @@ export class AllExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     this.logger.error(exception);
     switch (true) {
+      case exception instanceof UnauthorizedException:
+        response.status(HttpStatus.UNAUTHORIZED).json({
+          error_code: 'TMK.' + exception.getStatus(),
+          error_message: exception.message,
+        });
+        break;
       case exception instanceof BaseException:
         response.status(HttpStatus.BAD_REQUEST).json({
           error_code: 'TMK.' + exception.getStatus(),

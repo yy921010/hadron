@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { LiveModule } from './live/live.module';
 import { ConfigService, CoreModule } from './core';
 import { LoggerMiddleware } from './common';
-import { ShareModule } from './share/share.module';
+import { AuthModule } from './auth';
 
 @Module({
   imports: [
@@ -18,9 +18,9 @@ import { ShareModule } from './share/share.module';
       inject: [ConfigService],
     }),
     LiveModule,
-    ShareModule,
     CoreModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

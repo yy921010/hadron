@@ -34,6 +34,7 @@ export class UserCreateDto {
   @IsString()
   readonly authType: string;
 }
+
 export class UserUpdateDto {
   @IsString()
   readonly id: string;

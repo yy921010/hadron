@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ShareService } from './share.service';
+import { HelperService } from './helper.service';
 
 @Module({
-  providers: [ShareService],
-  exports: [ShareService],
+  providers: [HelperService],
+  exports: [HelperService],
 })
 export class ShareModule {}

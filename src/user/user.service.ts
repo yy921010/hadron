@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
-import { BaseException, Log4j } from '../common';
-import { Logger } from 'log4js';
-import { User } from './schema/user.schema';
-import * as uuid from 'uuid';
-import { PageInfoInterface } from '../core';
-import { UserError } from './errorCode/user.error';
+import { Injectable } from "@nestjs/common";
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
+import { UserCreateDto, UserUpdateDto } from "./dto/user.dto";
+import { BaseException, Log4j } from "../common";
+import { Logger } from "log4js";
+import { User } from "./schema/user.schema";
+import * as uuid from "uuid";
+import { PageInfoInterface } from "../core";
+import { UserError } from "./errorCode/user.error";
+
 @Injectable()
 @Log4j
 export class UserService {
@@ -89,5 +90,14 @@ export class UserService {
     return {
       message: '删除用户成功',
     };
+  }
+
+  async findOne(username: string): Promise<User> {
+    if (!username) {
+      return null;
+    }
+    return this.userModel.findOne({
+      username: username,
+    });
   }
 }
