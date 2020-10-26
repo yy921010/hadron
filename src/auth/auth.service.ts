@@ -2,14 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '../user';
 import { HelperService } from '../share/helper.service';
 import { JwtService } from '@nestjs/jwt';
-import { Log4j } from '../common';
+import { getLogger } from '../common';
 import { Logger } from 'log4js';
 import { User } from '../user/schema/user.schema';
 
 @Injectable()
-@Log4j
 export class AuthService {
-  private logger: Logger;
+  private logger: Logger = getLogger(AuthService.name);
   constructor(
     private readonly userService: UserService,
     private readonly helperService: HelperService,

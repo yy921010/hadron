@@ -3,15 +3,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Channel } from '../schema/channel.schema';
 import { Model } from 'mongoose';
 import { PageInfoInterface } from '../../core';
-import { BaseException, Log4j } from '../../common';
+import { BaseException, getLogger } from '../../common';
 import { Injectable } from '@nestjs/common';
 import { ChannelCreateDto, ChannelUpdateDto } from '../dto/channel.dto';
 import { ChannelError } from '../errorCode/channel.error';
 
-@Log4j
 @Injectable()
 export class ChannelService {
-  private logger: Logger;
+  private logger: Logger = getLogger(ChannelService.name);
   constructor(@InjectModel(Channel.name) private readonly channelModel: Model<Channel>) {}
 
   async save(channel: ChannelCreateDto): Promise<any> {

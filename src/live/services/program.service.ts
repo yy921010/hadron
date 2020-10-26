@@ -4,15 +4,14 @@ import { Program } from '../schema/program.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Logger } from 'log4js';
 import { PageInfoInterface } from '../../core';
-import { BaseException, Log4j } from '../../common';
+import { BaseException, getLogger } from '../../common';
 import { ProgramCreateDto, ProgramUpdateDto } from '../dto/program.dto';
 import { ProgramError } from '../errorCode/program.error';
 
 @Injectable()
-@Log4j
 export class ProgramService {
   constructor(@InjectModel(Program.name) private readonly programModel: Model<Program>) {}
-  private logger: Logger;
+  private logger: Logger = getLogger(ProgramService.name);
   async save(program: ProgramCreateDto): Promise<any> {
     const createProgram = new this.programModel(program);
     const channelResult = await createProgram.save();

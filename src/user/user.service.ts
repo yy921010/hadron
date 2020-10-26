@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserCreateDto, UserUpdateDto } from './dto/user.dto';
-import { BaseException, Log4j } from '../common';
+import { BaseException, getLogger } from '../common';
 import { Logger } from 'log4js';
 import { User } from './schema/user.schema';
 import * as uuid from 'uuid';
@@ -10,9 +10,8 @@ import { PageInfoInterface } from '../core';
 import { UserError } from './errorCode/user.error';
 
 @Injectable()
-@Log4j
 export class UserService {
-  private logger: Logger;
+  private logger: Logger = getLogger(UserService.name);
   constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
   async save(user: UserCreateDto): Promise<any> {

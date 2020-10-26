@@ -11,15 +11,14 @@ import {
 import { Request, Response } from 'express';
 import { Logger } from 'log4js';
 import { MongoError } from 'mongodb';
-import { BaseException, Log4j } from '..';
+import { BaseException, getLogger } from '..';
 
 /**
  * 所有异常过滤器
  */
-@Log4j
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
-  private logger: Logger;
+  private logger: Logger = getLogger(AllExceptionFilter.name);
 
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
