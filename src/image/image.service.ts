@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from "../core";
+import { ConfigService } from '../core';
 
 @Injectable()
 export class ImageService {
-  constructor(private readonly config:ConfigService) {
-  }
+  constructor(private readonly config: ConfigService) {}
 }
