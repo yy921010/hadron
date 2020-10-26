@@ -7,6 +7,7 @@ import { LiveModule } from './live/live.module';
 import { ConfigService, CoreModule } from './core';
 import { LoggerMiddleware } from './common';
 import { AuthModule } from './auth';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthModule } from './auth';
     CoreModule,
     UserModule,
     AuthModule,
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
