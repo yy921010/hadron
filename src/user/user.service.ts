@@ -8,14 +8,19 @@ import { User } from './schema/user.schema';
 import * as uuid from 'uuid';
 import { PageInfoInterface } from '../core';
 import { UserError } from './errorCode/user.error';
+import { HelperService } from '../share/helper.service';
 
 @Injectable()
 export class UserService {
   private logger: Logger = getLogger(UserService.name);
-  constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+    private readonly helperService: HelperService,
+  ) {}
 
   async save(user: UserCreateDto): Promise<any> {
     user.userId = 'userId_' + uuid.v4();
+    user.password = this.helperService.cryptoMd5(user.password + user.userId);
     const createUserModel = new this.userModel(user);
     const userResult = await createUserModel.save();
     this.logger.debug('[saveUser] userResult -> ', userResult);

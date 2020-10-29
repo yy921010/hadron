@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { createHash, createCipheriv, createDecipheriv } from 'crypto';
+import { ConfigService } from '../core';
 const ObjProto = Object.prototype;
 const toString = ObjProto.toString,
   hasOwnProperty = ObjProto.hasOwnProperty;
 
 @Injectable()
 export class HelperService {
+  constructor(private config: ConfigService) {}
   isArray(anyOpt): boolean {
     return toString.call(anyOpt) === '[object Array]';
   }
@@ -36,8 +38,8 @@ export class HelperService {
     return true;
   }
 
-  cryptoMd5(defaultStr: string, salt: string) {
-    const saltStr = `${defaultStr}:${salt}_zxcv4321`;
+  cryptoMd5(defaultStr: string) {
+    const saltStr = this.config.get('auth').salt;
     const md5 = createHash('md5');
     return md5.update(saltStr).digest('hex');
   }

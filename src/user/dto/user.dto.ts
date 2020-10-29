@@ -4,7 +4,7 @@ export class UserCreateDto {
   @IsString()
   readonly username: string;
   @IsString()
-  readonly password: string;
+  password: string;
   @IsString()
   readonly pin: string;
   @IsString()

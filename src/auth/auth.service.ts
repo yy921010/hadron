@@ -21,7 +21,12 @@ export class AuthService {
       this.logger.error('[validateUser] msg -> 用户不存在');
       return null;
     }
-    if (user.password !== password) {
+    if ('' + user.isAdmin === '0') {
+      this.logger.error('[validateUser] msg -> 用户管理员无法登录');
+      return null;
+    }
+    const cryptPassword = this.helperService.cryptoMd5(password + user.userId);
+    if (user.password !== cryptPassword) {
       this.logger.error('[validateUser] msg -> 密码错误');
       return null;
     }
