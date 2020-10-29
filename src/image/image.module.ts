@@ -34,7 +34,6 @@ import { Request } from 'express';
           //存储模式
           storage: diskStorage({
             destination: (req: Request, file, cb) => {
-              console.log('req', file);
               const uploadPath = configService.get('upload').basePath;
               // Create folder if doesn't exist
               if (!existsSync(uploadPath)) {
