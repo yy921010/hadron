@@ -9,6 +9,7 @@ import * as uuid from 'uuid';
 import { PageInfoInterface } from '../core';
 import { UserError } from './errorCode/user.error';
 import { HelperService } from '../share/helper.service';
+import { UserInfo } from './interfaces/user.interface';
 
 @Injectable()
 export class UserService {
@@ -103,5 +104,16 @@ export class UserService {
     return this.userModel.findOne({
       username: username,
     });
+  }
+
+  async getUserInfo(username: string): Promise<UserInfo> {
+    const userInfo = await this.findOne(username);
+    return {
+      username: userInfo.username,
+      ageLevel: userInfo.ageLevel,
+      avatar: userInfo.avatar,
+      nickName: userInfo.nickName,
+      mail: userInfo.mail,
+    };
   }
 }

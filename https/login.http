@@ -1,5 +1,5 @@
 ### Send POST request with json body
-POST http://localhost:3000/auth/login
+POST http://localhost:7001/oauth/login
 Content-Type: application/json
 
 {

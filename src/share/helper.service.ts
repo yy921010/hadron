@@ -39,7 +39,7 @@ export class HelperService {
   }
 
   cryptoMd5(defaultStr: string) {
-    const saltStr = this.config.get('auth').salt;
+    const saltStr = this.config.get('auth').salt + defaultStr;
     const md5 = createHash('md5');
     return md5.update(saltStr).digest('hex');
   }

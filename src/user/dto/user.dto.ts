@@ -9,16 +9,7 @@ export class UserCreateDto {
   readonly pin: string;
   @IsString()
   readonly nickName: string;
-  @IsString()
   userId: string;
-  @IsNumber()
-  readonly accountNonExpired: number;
-  @IsNumber()
-  readonly accountNonLocked: number;
-  @IsNumber()
-  readonly credentialsNonExpired: number;
-  @IsNumber()
-  readonly enable: number;
   @IsEmail()
   readonly mail: string;
   @IsNumber()

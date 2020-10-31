@@ -44,4 +44,10 @@ export class UserController {
   async deleteUser(@Param() params: any) {
     return this.userService.deleteUser(params.userId);
   }
+
+  @Get(':username')
+  @UseGuards(AuthGuard('jwt'))
+  async getUserInfo(@Param() params: any) {
+    return this.userService.getUserInfo(params.username);
+  }
 }
