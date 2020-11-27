@@ -8,7 +8,8 @@ import { ConfigService, CoreModule } from './core';
 import { LoggerMiddleware } from './common';
 import { AuthModule } from './auth';
 import { ImageModule } from './image/image.module';
-
+import { ClientsModule } from '@nestjs/microservices';
+import { grpcClientOptions } from "./oauth2/grpc-client.options";
 @Module({
   imports: [
     MongooseModule.forRootAsync({
@@ -18,6 +19,12 @@ import { ImageModule } from './image/image.module';
       },
       inject: [ConfigService],
     }),
+    ClientsModule.register([
+      {
+        name: 'OAUTH2_PACKAGE',
+        ...grpcClientOptions,
+      },
+    ]),
     LiveModule,
     CoreModule,
     UserModule,
