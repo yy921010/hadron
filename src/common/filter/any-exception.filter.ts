@@ -12,7 +12,7 @@ import { Request, Response } from 'express';
 import { Logger } from 'log4js';
 import { MongoError } from 'mongodb';
 import { BaseException, getLogger } from '..';
-import { MysqlException } from "../../mysql2";
+import { MysqlException } from '../../mysql2';
 
 /**
  * 所有异常过滤器

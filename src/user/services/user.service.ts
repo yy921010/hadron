@@ -8,7 +8,7 @@ import { PageInfoInterface } from '../../core';
 import { HelperService } from '../../share/helper.service';
 import { UserInfo } from '../interfaces/user.interface';
 import { UserDao } from './user.dao';
-import { UserError } from "../errorCode/user.error";
+import { UserError } from '../errorCode/user.error';
 @Injectable()
 export class UserService {
   private logger: Logger = getLogger(UserService.name);

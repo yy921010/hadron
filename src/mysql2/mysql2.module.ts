@@ -1,4 +1,4 @@
-import { DynamicModule, Global, Module, Provider } from "@nestjs/common";
+import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
 import { MysqlService } from './mysql2.service';
 import { MysqlModuleAsyncOptions } from './mysql2.interface';
 import { MYSQL_CLIENT, MYSQL_CONFIG_OPTION } from './mysql2.constants';

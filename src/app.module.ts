@@ -9,7 +9,7 @@ import { AuthModule } from './auth';
 import { ImageModule } from './image/image.module';
 import { ClientsModule } from '@nestjs/microservices';
 import { grpcClientOptions } from './oauth2/grpc-client.options';
-import  {MysqlModule} from './mysql2'
+import { MysqlModule } from './mysql2';
 @Module({
   imports: [
     MysqlModule.forRootAsync({

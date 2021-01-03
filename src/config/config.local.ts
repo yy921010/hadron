@@ -2,14 +2,14 @@ export const appConfig = {
   hadron: {
     version: 'local',
     port: 7002,
-    mysql:{
+    mysql: {
       host: 'localhost',
       user: 'root',
-      password:'12345678',
+      password: '12345678',
       database: 'tmk',
       waitForConnections: true,
       connectionLimit: 10,
-      queueLimit: 0
+      queueLimit: 0,
     },
     tokenGRPC: {},
     jwtConfig: {

@@ -1,4 +1,4 @@
-export class User{
+export class User {
   username: string;
   password?: string;
   pin?: string;
@@ -18,5 +18,5 @@ export class User{
   updateAt?: number;
   createAt?: number;
   isAdmin?: number;
-  id:string;
+  id: string;
 }
