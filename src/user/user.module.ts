@@ -1,26 +1,15 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 import { UserController } from './user.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from './schema/user.schema';
 import { ShareModule } from '../share/share.module';
+import { UserDao } from "./services/user.dao";
 
 @Module({
   imports: [
     ShareModule,
-    MongooseModule.forFeatureAsync([
-      {
-        name: User.name,
-        useFactory: () => {
-          const schema = UserSchema;
-          schema.pre('save', () => console.log('pre save hook'));
-          return schema;
-        },
-      },
-    ]),
   ],
-  providers: [UserService],
+  providers: [UserService,UserDao],
   controllers: [UserController],
-  exports: [UserService],
+  exports: [UserService,UserDao],
 })
 export class UserModule {}

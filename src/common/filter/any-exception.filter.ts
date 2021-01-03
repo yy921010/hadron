@@ -12,6 +12,7 @@ import { Request, Response } from 'express';
 import { Logger } from 'log4js';
 import { MongoError } from 'mongodb';
 import { BaseException, getLogger } from '..';
+import { MysqlException } from "../../mysql2";
 
 /**
  * 所有异常过滤器
@@ -29,6 +30,12 @@ export class AllExceptionFilter implements ExceptionFilter {
         response.status(HttpStatus.UNAUTHORIZED).json({
           error_code: 'TMK.' + exception.getStatus(),
           error_message: exception.message,
+        });
+        break;
+      case exception instanceof MysqlException:
+        response.status(HttpStatus.BAD_REQUEST).json({
+          error_code: 'TMK.' + exception.getStatus(),
+          error_message: exception.getResponse(),
         });
         break;
       case exception instanceof BaseException:

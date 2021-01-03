@@ -2,14 +2,16 @@ export const appConfig = {
   hadron: {
     version: 'local',
     port: 7002,
-    mongo: {
-        uri: 'mongodb://localhost/tmk',
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    mysql:{
+      host: 'localhost',
+      user: 'root',
+      password:'12345678',
+      database: 'tmk',
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0
     },
-    tokenGRPC:{
-
-    },
+    tokenGRPC: {},
     jwtConfig: {
       secret: 'nHnsBrgeUoRiuE5UyK9yDYHED^!DW@RqUyK9yDYHED^!DW@Rq',
       signOptions: {
